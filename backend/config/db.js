@@ -1,11 +1,16 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import dotenv from "dotenv";
+dotenv.config();
+
+
+// console.log("MONGO_URI from .env:", process.env.MONGO_URI);
 
 const connectDb = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URL);
-    console.log("✅ DB Connected");
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('DB connected successfully');
   } catch (error) {
-    console.log("❌ DB Error:", error.message); // <-- isko add karo
+    console.log('DB connection error:', error);
   }
 };
 
