@@ -20,7 +20,7 @@ function Login() {
         setLoading(true)
             try {
                 e.preventDefault()
-                let result = await axios.post(serverUrl + "/api/auth/login",{
+                let result = await axios.post("http://localhost:3000/api/auth/login",{
                     email,
                     password
     

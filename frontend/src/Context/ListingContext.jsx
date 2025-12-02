@@ -47,7 +47,7 @@ function ListingContext({children}) {
      formData.append("landMark",landmark)
      formData.append("category",category)
         
-        let result = await axios.post( serverUrl + "/api/listing/add" ,formData, {withCredentials:true}  )
+        let result = await axios.post("http://localhost:3000/api/listing/add" ,formData, {withCredentials:true}  )
         setAdding(false)
         console.log(result)
         navigate("/")
@@ -74,7 +74,7 @@ function ListingContext({children}) {
      }
      const handleViewCard = async (id) => {
         try {
-            let result = await axios.get( serverUrl + `/api/listing/findlistingByid/${id}`,{withCredentials:true})
+            let result = await axios.get(`http://localhost:3000/api/listing/findlistingByid/${id}`,{withCredentials:true})
             console.log(result.data)
             setCardDetails(result.data)
             navigate("/viewcard")
@@ -85,7 +85,7 @@ function ListingContext({children}) {
      }
      const handleSearch = async (data) => {
         try {
-            let result = await axios.get(serverUrl + `/api/listing/search?query=${data}`)
+            let result = await axios.get(`http://localhost:3000/api/listing/search?query=${data}`)
             setSearchData(result.data)
         } catch (error) {
             setSearchData(null)
@@ -97,7 +97,7 @@ function ListingContext({children}) {
 
      const getListing = async () => {
         try {
-            let result = await axios.get( serverUrl + "/api/listing/get",{withCredentials:true})
+            let result = await axios.get("http://localhost:3000/api/listing/get",{withCredentials:true})
             setListingData(result.data)
             setNewListData(result.data)
 

@@ -21,7 +21,7 @@ function BookingContext({children}) {
     const handleBooking = async (id) => {
          setbooking(true)
         try {
-            let result = await axios.post( serverUrl + `/api/booking/create/${id}`,{
+            let result = await axios.post(`http://localhost:3000/api/booking/create/${id}`,{
                 checkIn,checkOut,totalRent:total
             },{withCredentials:true})
             await getCurrentUser()
@@ -46,7 +46,7 @@ function BookingContext({children}) {
     }
     const cancelBooking = async (id) => {
         try {
-            let result = await axios.delete( serverUrl + `/api/booking/cancel/${id}`,{withCredentials:true})
+            let result = await axios.delete(`http://localhost:3000/api/booking/cancel/${id}`,{withCredentials:true})
         await getCurrentUser()
         await getListing()
         console.log(result.data)

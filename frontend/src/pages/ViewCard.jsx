@@ -71,7 +71,7 @@ function ViewCard() {
      formData.append("landMark",landmark)
     
         
-        let result = await axios.post( serverUrl + `/api/listing/update/${cardDetails._id}` ,formData, {withCredentials:true}  )
+        let result = await axios.post(`http://localhost:3000/api/listing/update/${cardDetails._id}` ,formData, {withCredentials:true}  )
         setUpdating(false)
         console.log(result)
         toast.success("Lising Updated")
@@ -97,7 +97,7 @@ function ViewCard() {
      const handleDeleteListing = async () => {
         setDeleting(true)
         try {
-            let result = await axios.delete( serverUrl + `/api/listing/delete/${cardDetails._id}`, {withCredentials:true}  )
+            let result = await axios.delete(`http://localhost:3000/api/listing/delete/${cardDetails._id}`, {withCredentials:true}  )
             console.log(result.data)
             navigate("/")
             toast.success("Listing Delete")
