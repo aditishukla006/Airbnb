@@ -3,40 +3,25 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-
-# -----------------------------
-# Chrome Options
-# -----------------------------
 options = webdriver.ChromeOptions()
-options.headless = False  # Show browser for debugging
+options.headless = False  
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 10)
-
-# -----------------------------
-# Test Data
-# -----------------------------
 EMAIL = "aditi@gmail.com"
 PASSWORD = "1234"
 CHECKIN_DATE = "2025-12-10"
 CHECKOUT_DATE = "2025-12-12"
-
-# -----------------------------
-# Helper Functions
-# -----------------------------
 def login(email, password):
     driver.get("http://localhost:5173/login")
     email_field = wait.until(EC.presence_of_element_located((By.ID, "email")))
     password_field = wait.until(EC.presence_of_element_located((By.ID, "password")))
     login_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Login']")))
-
     email_field.send_keys(email)
     password_field.send_keys(password)
     login_btn.click()
     time.sleep(2)
     print(f"[INFO] Logged in as {email}")
-
 def open_first_listing():
-    # Wait for listing cards to appear
     first_listing = wait.until(
     EC.element_to_be_clickable(
         (By.CSS_SELECTOR, "[class*='w-[330px]']")
@@ -45,11 +30,9 @@ def open_first_listing():
     first_listing.click()
     print("[INFO] Opened first listing")
     time.sleep(2)
-
 def open_booking_popup():
     reserve_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Reserve']")))
-    reserve_btn.click()
-    # Wait for booking popup
+    reserve_btn.click()   
     wait.until(EC.visibility_of_element_located((By.XPATH, "//h1[text()='Confirm & Book']")))
     print("[INFO] Booking popup opened")
 
@@ -76,10 +59,6 @@ def book_listing():
     # Wait for confirmation toast (optional)
     time.sleep(2)
     print("[SUCCESS] Booking completed")
-
-# -----------------------------
-# Test Flow
-# -----------------------------
 try:
     login(EMAIL, PASSWORD)
     open_first_listing()

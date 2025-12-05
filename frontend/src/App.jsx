@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
-
 import { ToastContainer, toast } from 'react-toastify';
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
@@ -13,8 +12,6 @@ import MyListing from './pages/MyListing'
 import ViewCard from './pages/ViewCard'
 import MyBooking from './pages/MyBooking'
 import Booked from './pages/Booked'
-
-
 function App() {
   let {userData} = useContext(userDataContext)
  
@@ -39,8 +36,6 @@ function App() {
        element={userData != null ? <MyBooking/>:<Navigate to={"/"}/>}/>
        <Route path='/booked'
        element={userData != null ? <Booked/>:<Navigate to={"/"}/>}/>
-      
-
     </Routes>
     </>
   )
