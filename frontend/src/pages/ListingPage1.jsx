@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { listingDataContext } from '../Context/ListingContext';
-
 function ListingPage1() {
    let navigate = useNavigate()
    let {title,setTitle,
@@ -17,8 +16,6 @@ function ListingPage1() {
     city,setCity,
     landmark,setLandmark,
     category,setCategory} = useContext(listingDataContext)
-    
-
     const handleImage1 = (e)=>{
         let file = e.target.files[0]
         setBackEndImage1(file)
@@ -89,17 +86,8 @@ function ListingPage1() {
             </div> 
 
             <button className='px-[50px] py-[10px] bg-[red] text-[white] text-[18px] md:px-[100px] rounded-lg '>Next</button>
-
-
-
-
-
-        </form>
-      
-
-      
+        </form>   
     </div>
   )
 }
-
 export default ListingPage1

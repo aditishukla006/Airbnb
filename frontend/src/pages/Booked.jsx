@@ -36,14 +36,9 @@ function Booked() {
           console.log(error)
         }
         }
-
-
-
     const handleStar=async (value) => {
         setStar(value)
         console.log("you rated",value )
-
-        
     }
 
   

@@ -4,7 +4,7 @@ import User from "../model/user.model.js";
 
 
 
-export const addListing = async (req,res) => {
+/*export const addListing = async (req,res) => {
     try {
         let host = req.userId;
         let {title,description,rent,city,landMark,category} = req.body
@@ -36,6 +36,54 @@ export const addListing = async (req,res) => {
         return res.status(500).json({message:`AddListing error ${error}`})
     }
 }
+*/
+export const addListing = async (req, res) => {
+    try {
+        const host = req.userId;
+        const { title, description, rent, city, landMark, category } = req.body;
+
+        // Validate files exist
+        if (!req.files || !req.files.image1 || !req.files.image2 || !req.files.image3) {
+            return res.status(400).json({ message: "All 3 images are required" });
+        }
+
+        const image1Path = req.files.image1[0]?.path;
+        const image2Path = req.files.image2[0]?.path;
+        const image3Path = req.files.image3[0]?.path;
+
+        const image1 = image1Path ? await uploadOnCloudinary(image1Path) : null;
+        const image2 = image2Path ? await uploadOnCloudinary(image2Path) : null;
+        const image3 = image3Path ? await uploadOnCloudinary(image3Path) : null;
+
+        const listing = await Listing.create({
+            title,
+            description,
+            rent,
+            city,
+            landMark,
+            category,
+            image1,
+            image2,
+            image3,
+            host
+        });
+
+        const user = await User.findByIdAndUpdate(
+            host,
+            { $push: { listing: listing._id } },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.status(201).json(listing);
+
+    } catch (error) {
+        return res.status(500).json({ message: `AddListing error ${error}` });
+    }
+};
 
 export const getListing= async (req,res) => {
     try {
@@ -134,27 +182,31 @@ export const ratingListing = async (req, res) => {
         return res.status(500).json({ message: "Rating error" });
     }
 };
-
-export const search = async (req,res) => {
+export const search = async (req, res) => {
     try {
         const { query } = req.query;
-    
+
         if (!query) {
             return res.status(400).json({ message: "Search query is required" });
         }
-    
+
+        // Escape all regex special characters
+        const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
         const listing = await Listing.find({
             $or: [
-                { landMark: { $regex: query, $options: "i" } },
-                { city: { $regex: query, $options: "i" } },
-                { title: { $regex: query, $options: "i" } },
+                { landMark: { $regex: safeQuery, $options: "i" } },
+                { city: { $regex: safeQuery, $options: "i" } },
+                { title: { $regex: safeQuery, $options: "i" } },
             ],
         });
-    
-       return res.status(200).json(listing);
+
+        return res.status(200).json(listing);
+
     } catch (error) {
         console.error("Search error:", error);
-      return  res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: "Internal server error" });
     }
-    }
+};
+
     
