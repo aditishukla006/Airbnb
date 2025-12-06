@@ -95,7 +95,7 @@ export const getListing= async (req,res) => {
     
 }
 
-export const findListing= async (req,res) => {
+/*export const findListing= async (req,res) => {
     try {
         let {id}= req.params
         let listing = await Listing.findById(id)
@@ -107,7 +107,30 @@ export const findListing= async (req,res) => {
        return res.status(500).json(`findListing error ${error}`)
     }
     
-}
+}*/
+import mongoose from "mongoose";
+
+export const findListing = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // ✅ Check if the ID is a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid listing ID" });
+    }
+
+    const listing = await Listing.findById(id);
+
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found" });
+    }
+
+    return res.status(200).json(listing);
+  } catch (error) {
+    return res.status(500).json({ message: `findListing error ${error}` });
+  }
+};
+
 export const updateListing = async (req,res) => {
     try {
         let image1;
