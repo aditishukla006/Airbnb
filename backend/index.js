@@ -17,26 +17,12 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(cors({
-    origin: function(origin, callback){
-        const allowedOrigins = [
-            "http://localhost:5173",
-            "https://airbnb-puce-three.vercel.app"
-        ];
-
-        // allow requests with no origin (like Postman)
-        if(!origin) return callback(null, true);
-
-        if(allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        } else {
-            console.log("Blocked by CORS: ", origin);
-            return callback(new Error("CORS not allowed for this origin"), false);
-        }
-    },
+    origin: [
+        "http://localhost:5173",
+        "https://airbnb-puce-three.vercel.app"
+    ],
     credentials: true
 }));
-
-
 
 app.get('/', (req, res) => {
     res.send('server running ..!');

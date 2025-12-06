@@ -12,12 +12,13 @@ export const sighUp=async (req,res) => {
         let hashPassword = await bcrypt.hash(password,10)
         let user = await User.create({name , email , password:hashPassword})
         let token = await genToken(user._id)
-        res.cookie("token",token,{
-            httpOnly:true,
-            secure:process.env.NODE_ENVIRONMENT === "production",
-            sameSite: "strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+      res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,          // always true in production (Render is HTTPS)
+    sameSite: "none",      // REQUIRED for Vercel + Render cross-domain
+    maxAge: 7 * 24 * 60 * 60 * 1000
+});
+
         return res.status(201).json(user)
     } catch (error) {
         return res.status(500).json({message:`sighup error ${error}`})
@@ -35,12 +36,13 @@ export const login = async (req,res) => {
             return res.status(400).json({message:"incorrect Password"})
         }
         let token = await genToken(user._id)
-        res.cookie("token",token,{
-            httpOnly:true,
-            secure:process.env.NODE_ENVIRONMENT === "production",
-            sameSite: "strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+       res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,          // always true in production (Render is HTTPS)
+    sameSite: "none",      // REQUIRED for Vercel + Render cross-domain
+    maxAge: 7 * 24 * 60 * 60 * 1000
+});
+
         return res.status(200).json(user)
         
     } catch (error) {
@@ -48,11 +50,16 @@ export const login = async (req,res) => {
     }
     
 }
-export const logOut = async (req,res) => {
+export const logOut = async (req, res) => {
     try {
-        res.clearCookie("token")
-        return res.status(200).json({message:"Logout Successfully"})
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        });
+
+        return res.status(200).json({ message: "Logout Successfully" });
     } catch (error) {
-        return res.status(500).json({message:`logout error ${error}`})
+        return res.status(500).json({ message: `logout error ${error}` });
     }
-}
+};
