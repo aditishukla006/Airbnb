@@ -71,7 +71,7 @@ function ViewCard() {
      formData.append("landMark",landmark)
     
         
-        let result = await axios.post(`http://localhost:3000/api/listing/update/${cardDetails._id}` ,formData, {withCredentials:true}  )
+        let result = await axios.post(`https://air-bnb-project-4quh.onrender.com/api/listing/update/${cardDetails._id}` ,formData, {withCredentials:true}  )
         setUpdating(false)
         console.log(result)
         toast.success("Lising Updated")

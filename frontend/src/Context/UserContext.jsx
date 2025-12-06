@@ -11,7 +11,7 @@ function UserContext({children}) {
      const getCurrentUser = async () => {
 
         try {
-            let result = await axios.get("http://localhost:3000/api/user/currentuser",{withCredentials:true})
+            let result = await axios.get("https://air-bnb-project-4quh.onrender.com/api/user/currentuser",{withCredentials:true})
             setUserData(result.data)
         } catch (error) {
             setUserData(null)
