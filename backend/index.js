@@ -20,7 +20,7 @@ app.use(cors({
     origin: function(origin, callback){
         const allowedOrigins = [
             "http://localhost:5173",
-            "https://airbnb-git-main-aditishukla006s-projects.vercel.app"
+            "https://airbnb-puce-three.vercel.app"
         ];
 
         // allow requests with no origin (like Postman)
@@ -30,11 +30,12 @@ app.use(cors({
             return callback(null, true);
         } else {
             console.log("Blocked by CORS: ", origin);
-            return callback(null, false); // just reject silently
+            return callback(new Error("CORS not allowed for this origin"), false);
         }
     },
     credentials: true
 }));
+
 
 
 app.get('/', (req, res) => {
