@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import os
 
-FRONTEND_URL = "http://localhost:5173/login"
+FRONTEND_URL = "https://air-bnb-project-4quh.onrender.com/login"
 EMAIL = "aditi@gmail.com"
 PASSWORD = "1234"
 
@@ -34,11 +34,6 @@ def login():
     driver.find_element(By.XPATH, "//button[contains(text(),'Login')]").click()
     wait.until(lambda d: d.current_url != FRONTEND_URL)
     print("✔ Login successful!")
-
-
-# -------------------------------------------------------
-# WAIT FOR TOAST
-# -------------------------------------------------------
 def wait_for_toasts():
     try:
         wait.until_not(EC.presence_of_element_located(
@@ -47,11 +42,6 @@ def wait_for_toasts():
     except:
         pass
     time.sleep(0.5)
-
-
-# -------------------------------------------------------
-# CLICK LIST HOME
-# -------------------------------------------------------
 def click_list_home():
     print("[STEP] Clicking List Your Home…")
     wait_for_toasts()
@@ -66,11 +56,6 @@ def click_list_home():
 
     wait.until(EC.url_contains("/listingpage1"))
     print("✔ Opened ListingPage1!")
-
-
-# -------------------------------------------------------
-# PAGE 1
-# -------------------------------------------------------
 def fill_listing_page_1():
     print("[STEP] Filling ListingPage1…")
 
@@ -124,11 +109,6 @@ def fill_listing_page_2():
 
     wait.until(EC.url_contains("/listingpage3"))
     print("🎉 ListingPage2 completed → Page3 opened!")
-
-
-# -------------------------------------------------------
-# PAGE 3 (SUBMIT LISTING)
-# -------------------------------------------------------
 def fill_listing_page_3():
     print("[STEP] Submitting Listing from Page3…")
 
@@ -142,11 +122,6 @@ def fill_listing_page_3():
     # 🟢 WAIT FOR REDIRECT TO HOME PAGE
     wait.until(EC.url_contains("/"))
     print("🎉 Redirected to Home Page successfully!")
-
-
-# -------------------------------------------------------
-# RUN ALL TESTS
-# -------------------------------------------------------
 try:
     login()
     click_list_home()

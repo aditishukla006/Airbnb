@@ -97,7 +97,7 @@ function ViewCard() {
      const handleDeleteListing = async () => {
         setDeleting(true)
         try {
-            let result = await axios.delete(`http://localhost:3000/api/listing/delete/${cardDetails._id}`, {withCredentials:true}  )
+            let result = await axios.delete(`https://air-bnb-project-4quh.onrender.com/api/listing/delete/${cardDetails._id}`, {withCredentials:true}  )
             console.log(result.data)
             navigate("/")
             toast.success("Listing Delete")

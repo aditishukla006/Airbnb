@@ -8,7 +8,7 @@ options.headless = False
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 10)
 def load_login_page():
-    driver.get("http://localhost:5173/login")
+    driver.get("https://air-bnb-project-4quh.onrender.com/login")
     print("[INFO] Login page opened")
     time.sleep(1) 
 def get_elements():

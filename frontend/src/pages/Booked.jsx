@@ -23,7 +23,7 @@ function Booked() {
 
     const handleRating=async (id)=>{
         try {
-          let result=await axios.post(`http://localhost:3000/api/listing/ratings/${id}`,{
+          let result=await axios.post(`https://air-bnb-project-4quh.onrender.com/api/listing/ratings/${id}`,{
             ratings:star
           },{withCredentials:true})
           await getListing()
