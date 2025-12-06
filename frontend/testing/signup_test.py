@@ -8,7 +8,7 @@ options.headless = False
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 10)
 def load_signup_page():
-    driver.get("https://air-bnb-project-4quh.onrender.com/signup")
+    driver.get("https://airbnb-8nr7.onrender.com/signup")
     print("[INFO] SignUp page opened")
     time.sleep(1)
 def get_elements():

@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import os
 
-FRONTEND_URL = "https://air-bnb-project-4quh.onrender.com/login"
+FRONTEND_URL = "https://airbnb-8nr7.onrender.com/login"
 EMAIL = "aditi@gmail.com"
 PASSWORD = "1234"
 

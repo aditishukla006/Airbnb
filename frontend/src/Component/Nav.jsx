@@ -27,7 +27,7 @@ function Nav() {
     let [input,setInput]=useState("")
     const handleLogOut = async () => {
         try {
-            let result = await axios.post("https://air-bnb-project-4quh.onrender.com/api/auth/logout", {withCredentials:true})
+            let result = await axios.post("https://airbnb-8nr7.onrender.com/api/auth/logout", {withCredentials:true})
             setUserData(null)
 
             console.log(result)

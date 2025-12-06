@@ -21,7 +21,7 @@ function BookingContext({children}) {
     const handleBooking = async (id) => {
          setbooking(true)
         try {
-            let result = await axios.post(`https://air-bnb-project-4quh.onrender.com/api/booking/create/${id}`,{
+            let result = await axios.post(`https://airbnb-8nr7.onrender.com/api/booking/create/${id}`,{
                 checkIn,checkOut,totalRent:total
             },{withCredentials:true})
             await getCurrentUser()
@@ -46,7 +46,7 @@ function BookingContext({children}) {
     }
     const cancelBooking = async (id) => {
         try {
-            let result = await axios.delete(`https://air-bnb-project-4quh.onrender.com/api/booking/cancel/${id}`,{withCredentials:true})
+            let result = await axios.delete(`https://airbnb-8nr7.onrender.com/api/booking/cancel/${id}`,{withCredentials:true})
         await getCurrentUser()
         await getListing()
         console.log(result.data)

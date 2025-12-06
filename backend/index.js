@@ -18,16 +18,19 @@ app.use(cookieParser())
 
 app.use(cors({
     origin: function(origin, callback){
-        // allow requests with no origin (like Postman)
-        if(!origin) return callback(null, true); 
         const allowedOrigins = [
             "http://localhost:5173",
             "https://airbnb-git-main-aditishukla006s-projects.vercel.app"
         ];
+
+        // allow requests with no origin (like Postman)
+        if(!origin) return callback(null, true);
+
         if(allowedOrigins.includes(origin)) {
-            callback(null, true);
+            return callback(null, true);
         } else {
-            callback(new Error("CORS not allowed for this origin"), false);
+            console.log("Blocked by CORS: ", origin);
+            return callback(null, false); // just reject silently
         }
     },
     credentials: true

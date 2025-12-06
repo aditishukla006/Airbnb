@@ -12,7 +12,7 @@ PASSWORD = "1234"
 CHECKIN_DATE = "2025-12-10"
 CHECKOUT_DATE = "2025-12-12"
 def login(email, password):
-    driver.get("https://air-bnb-project-4quh.onrender.com/login")
+    driver.get("https://airbnb-8nr7.onrender.com/login")
     email_field = wait.until(EC.presence_of_element_located((By.ID, "email")))
     password_field = wait.until(EC.presence_of_element_located((By.ID, "password")))
     login_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Login']")))

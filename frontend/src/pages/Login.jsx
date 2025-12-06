@@ -20,7 +20,7 @@ function Login() {
         setLoading(true)
             try {
                 e.preventDefault()
-                let result = await axios.post("https://air-bnb-project-4quh.onrender.com/api/auth/login",{
+                let result = await axios.post("https://airbnb-8nr7.onrender.com/api/auth/login",{
                     email,
                     password
     

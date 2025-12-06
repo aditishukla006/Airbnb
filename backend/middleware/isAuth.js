@@ -1,25 +1,22 @@
 import jwt from "jsonwebtoken"
+const isAuth = async (req,res,next) => {
 
-const isAuth = (req, res, next) => {
-  try {
-    const { token } = req.cookies;
+    try {
+        let {token} = req.cookies
+        if(!token){
+            res.status(400).json({message:"user doesn't have a token"})
+        }
+        let verifyToken = jwt.verify(token,process.env.JWT_SECRET)
+        if(!verifyToken){
+            res.status(400).json({message:"user doesn't have a Validtoken"})
+        }
+        req.userId = verifyToken.userId
+        next()
 
-    if (!token) {
-      return res.status(401).json({ message: "User does not have a token" });
+    } catch (error) {
+        res.status(500).json({message:`isAuth error ${error}`})
+        
     }
-
-    const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (!verifyToken) {
-      return res.status(401).json({ message: "Invalid token" });
-    }
-
-    req.userId = verifyToken.userId;
-
-    return next();  // IMPORTANT
-  } catch (error) {
-    return res.status(500).json({ message: `isAuth error: ${error}` });
-  }
-};
-
-export default isAuth;
+    
+}
+export default isAuth
